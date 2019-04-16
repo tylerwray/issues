@@ -24,3 +24,6 @@ issues-*.tar
 
 # VSCode smartness
 /.elixir_ls/
+
+# binary
+issues
