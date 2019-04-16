@@ -48,27 +48,21 @@ defmodule IssuesTest do
   end
 
   test "column_widths" do
-    widths = TF.widths_of(split_with_three_columns())
+    widths = Issues.widths_of(split_with_three_columns())
     assert widths == [5, 6, 7]
   end
 
   test "correct format string returned" do
-    assert TF.format_for([9, 10, 11]) == "~-9s | ~-10s | ~-11s~n"
+    assert Issues.format_for([9, 10, 11]) == "~-9s | ~-10s | ~-11s~n"
   end
 
   test "Output is correct" do
     result =
       capture_io(fn ->
-        TF.print_table_for_columns(@simple_test_data, @headers)
+        Issues.print_table_for_columns(@simple_test_data, @headers)
       end)
 
-    assert result == """
-           c1    | c2     | c4
-           ------+--------+--------
-           r1 c1 | r1 c2  | r1+++c4
-           r2 c1 | r2 c2  | r2 c4
-           r3 c1 | r3 c2  | r3 c4
-           r4 c1 | r4++c2 | r4 c4
-           """
+    assert result ==
+             "c1    | c2     | c4     \n------+--------+--------\nr1 c1 | r1 c2  | r1+++c4\nr2 c1 | r2 c2  | r2 c4  \nr3 c1 | r3 c2  | r3 c4  \nr4 c1 | r4++c2 | r4 c4  \n"
   end
 end
